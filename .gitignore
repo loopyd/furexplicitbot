@@ -104,7 +104,4 @@ dist
 .tern-port
 
 # Custom
-test_token.json
-config/config.json
-config/-config.json
 FurExplicitBot/shared.env
