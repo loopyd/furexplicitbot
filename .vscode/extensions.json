@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+        "mads-hartmann.bash-ide-vscode",
+        "ms-azuretools.vscode-docker",
+        "p1c2u.docker-compose",
+        "formulahendry.docker-explorer",
+        "codezombiech.gitignore",
+        "mohsen1.prettify-json",
+        "ms-vscode-remote.vscode-remote-extensionpack",
+        "foxundermoon.shell-format",
+        "timonwong.shellcheck"
+    ]
+}

@@ -72,7 +72,7 @@
         "heartbeat": {
             "uptime": {
                 "interval": 50000,
-                "endpoint": "https://status.flipped.codes/api/push/"
+                "endpoint": "https://example.com/api/push/"
             },
             "discordbotlist": {
                 "interval": 600000,
