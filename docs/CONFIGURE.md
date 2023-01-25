@@ -32,7 +32,8 @@ Changing the ``interval`` property (in milleseconds) will allow uptime heartbeat
 
 Updating the ``endpoint`` property is nessecary.  Here is that table of examples:
 
-| Value | Environment | Description |
+| Value | Environment | Description        |
+| ----- | ----------- | ------------------ | 
 | ``https://localhost:port/api/push`` | local | localhost:port combination with the api push endpoint on a specific ``port`` on localhost in your self-hosting environment. |
 | ``https://kuma-proxy:port/api/push`` | local (docker) | docker:port combination with the api push endpoint on a specific ``port`` on docker, configured with https reverse proxy on top of ngrix or apache running in docker on your host, this one should reference the webserver container that's configured as the reverse proxy. |
 | ``https://example.com/api/push`` | remote | Your website, with the API configured to be publically accessible.  As you'd installed kuma on your VPS. |
@@ -53,7 +54,7 @@ Filling them out causes the bot to send heartbeats to the respective Discord Bot
 
 You'll need to work with the listing provider to recieve an API token for your bot for each of the respective services mentioned here.  We have provided direct links to them to help you out during setup.
 
-| Service | Token Value | Link |
+| Service       | Token               | Link                        |
 | ------------- | ------------------- | --------------------------- |
 | BotsOnDiscord | ``TOKEN_BOTSONDISCORD`` | https://bots.ondiscord.xyz/info/api |
 | DiscordBotList | ``TOKEN_DISCORDBOTLIST`` | https://ads.discordbotlist.com/ |
