@@ -105,9 +105,6 @@ dist
 
 # Custom
 test_token.json
-.vscode/
-mawbot/config/test_token testbot.json
-mawbot/config/test_token main.json
 config/config.json
 config/-config.json
 FurExplicitBot/shared.env
