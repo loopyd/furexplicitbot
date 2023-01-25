@@ -4,9 +4,9 @@ import PQueue from 'p-queue';
 
 import Sequelize from 'sequelize';
 
-import { main as intAutopostfasubmission } from './database/models/autopostfasubmission.js.js';
+import { main as intAutopostfasubmission } from './database/models/autopostfasubmission.js';
 
-import { main as intPostfacache } from './database/models/postfacache.js.js';
+import { main as intPostfacache } from './database/models/postfacache.js';
 
 const mainQ = new PQueue({ concurrency: 1 });
 
