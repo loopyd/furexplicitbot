@@ -1,0 +1,159 @@
+{
+    "setup": {
+        "setupFunctions": [
+            "SETUP_status",
+            "SETUP_heartbeat",
+            "SETUP_initCommands",
+            "SETUP_DBSync"
+        ]
+    },
+    "commands": {
+        "buttonTimeout": 600000,
+        "about": {
+            "text": "./about.txt",
+            "logo": "https://cdn.discordapp.com/avatars/534828939198070824/d1ed4e147d58e53944ee7ad93f77f44c.png?size=4096"
+        },
+        "autopost": {
+            "intervalChecker": 60000,
+            "dbOffset": 7200000,
+            "maxCache": 100,
+            "maxChannels": 2,
+            "minPostTime": 600000,
+            "maxPostTime": 18000000,
+            "minPics": 100
+        },
+        "faAutopost": {
+            "intervalChecker": 1.8e+6,
+            "maxArtists": 10
+        },
+        "changelog": {
+            "text": "./changelog.txt"
+        },
+        "source": {
+            "uri": "https://saucenao.com/search.php",
+            "params": {
+                "db": 999,
+                "output_type": 2,
+                "numres": 10
+            },
+            "minSimilarity": 85,
+            "e621Index": 29,
+            "allowedFiletypes": ["png", "jpg", "gif"],
+            "searcherLogo": "https://cdn.discordapp.com/attachments/569187592919056389/956733059863052358/saucenao.png"
+        },
+        "status": {
+            "api": {
+                "endpoint": "https://status.flipped.codes/api/status-page/",
+                "groupName": "FurExplicitBot",
+                "apiCall": {
+                    "services": "flippedcodes",
+                    "uptime": "heartbeat/flippedcodes"
+                }
+            },
+            "embed": {
+                "icon": "https://status.flipped.codes/upload/logo2.png",
+                "url": "https://status.flipped.codes/"
+            }
+        }
+    },
+    "functions": {
+        "allowSFWChannels": false,
+        "globalFuncs": {
+            "uwuifier": {
+                "spaces": {
+                    "faces": 0.08,
+                    "actions": 0,
+                    "stutters": 0.2
+                  },
+                  "words": 0.5,
+                  "exclamations": 0
+            }
+        },
+        "heartbeat": {
+            "uptime": {
+                "interval": 50000,
+                "endpoint": "https://status.flipped.codes/api/push/"
+            },
+            "discordbotlist": {
+                "interval": 600000,
+                "endpoint": "https://discordbotlist.com/api/v1/bots/"
+            },
+            "motiondevelopment": {
+                "interval": 600000,
+                "endpoint": "https://www.motiondevelopment.top/api/v1.2/bots/"
+            },
+            "discordbots": {
+                "interval": 600000,
+                "endpoint": "https://discord.bots.gg/api/v1/bots/"
+            },
+            "botsondiscord": {
+                "interval": 600000,
+                "endpoint": "https://bots.ondiscord.xyz/bot-api/bots/"
+            },
+            "discords": {
+                "interval": 600000,
+                "endpoint": "https://discords.com/bots/api/bot/"
+            }
+        },
+        "blacklistTags": {
+            "managementServerID": "569178297515245578"
+        }
+    },
+    "customEmoji": {
+        "serverID": "569178297515245578",
+        "emoji": {
+            "details": "714094023396032593"
+        }
+    },
+    "engine": {
+        "furaffinity": {
+            "logo": "https://www.furaffinity.net/themes/beta/img/banners/fa_logo.png",
+            "color": "FAAF3A",
+            "label": "furaffinity.net"
+        },
+        "e621": {
+            "logo": "https://s3.amazonaws.com/gt7sp-prod/decal/76/91/55/8223656485231559176_1.png",
+            "color": "012E57",
+            "endpoint": {
+                "nsfw": "https://e621.net/posts.json",
+                "sfw": "https://e926.net/posts.json"
+            },
+            "poolEndpoint": "https://e621.net/pools.json",
+            "autocompleteEndpoint": "https://e621.net/tags/autocomplete.json"
+        },
+        "inkbunny": {
+            "logo": "https://cdn.discordapp.com/attachments/985540873007808512/1024448115840913459/unknown.png",
+            "color": "73d216",
+            "endpoint": {
+                "main": "https://inkbunny.net/",
+                "autocomplete": "https://inkbunny.net/api_search_autosuggest.php"
+            }
+        },
+        "rule34": {
+            "logo": "https://cdn.discordapp.com/attachments/985540873007808512/985540887067103242/unknown.png",
+            "color": "aae5a3",
+            "endpoint": {
+                "main": "https://api.rule34.xxx/index.php",
+                "autocomplete": "https://rule34.xxx/public/autocomplete.php"
+            },
+            "autopost": {
+                "intervalChecker": 60000,
+                "dbOffset": 7200000,
+                "maxCache": 100,
+                "maxChannels": 2,
+                "minPostTime": 600000,
+                "maxPostTime": 18000000,
+                "minPics": 100
+            },
+            "poolHandler": {
+                "maxCacheTime": 600000
+            }
+        }
+    },
+    "OLD CONFIG BELOW-------------------------------------------------------------": true,
+    "fn": {
+        "logo": "https://furrynetwork.com/static-media/icons/apple-touch-icon-76x76@2x.png",
+        "color": "2e76b4",
+        "label": "furrynetwork.com"
+    }
+}

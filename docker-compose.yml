@@ -1,65 +1,41 @@
 version: '3.3'
 services:
-  app:
+  feb-app:
     build:
-      context: ./
+      context: ./FurExplicitBot/feb-app
     depends_on:
-      - db-feb
+      - feb-db
     restart: always
-    environment:
-      token_discord: ${token_discord}
-      token_uptime: ${token_uptime}
-      token_botsondiscord: ${token_botsondiscord}
-      token_discordbotlist: ${token_discordbotlist}
-      token_discords: ${token_discords}
-      token_discordbots: ${token_discordbots}
-      token_motiondevelopment: ${token_motiondevelopment}
-      token_saucenao: ${token_saucenao}
-      login_fa_cookie_a: ${login_fa_cookie_a}
-      login_fa_cookie_b: ${login_fa_cookie_b}
-      login_e621_user: ${login_e621_user}
-      token_e621: ${token_e621}
-      db_dialect: mysql
-      db_host: db-feb
-      db_name: furExplicitBot
-      db_user: furExplicitBot
-      db_passw: ${db_password}
+    env_file:
+      - ./FurExplicitBot/shared.env
     logging:
       driver: "json-file"
       options:
         max-size: "1G"
 
-  worker_faautpost:
+  feb-autopost:
     build:
-      context: ./workers/faAutopost
+      context: ./FurExplicitBot/feb-faautopost
     depends_on:
-      - db-feb
+      - feb-db
     restart: always
-    environment:
-      login_fa_cookie_a: ${login_fa_cookie_a}
-      login_fa_cookie_b: ${login_fa_cookie_b}
-      db_dialect: mysql
-      db_host: db-feb
-      db_name: furExplicitBot
-      db_user: furExplicitBot
-      db_passw: ${db_password}
+    env_file:
+      - ./FurExplicitBot/shared.env
     logging:
       driver: "json-file"
       options:
         max-size: "1G"
 
-  db-feb:
-    image: mariadb:latest
+  feb-db:
+    build:
+      context: ./FurExplicitBot/feb-db
     restart: always
+    env_file:
+      - ./FurExplicitBot/shared.env
     ports:
-      - "${db_port}:3306"
+      - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: ${db_password_root}
-      MYSQL_DATABASE: furExplicitBot
-      MYSQL_USER: furExplicitBot
-      MYSQL_PASSWORD: ${db_password}
     logging:
       driver: "json-file"
       options:

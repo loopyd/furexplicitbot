@@ -9,21 +9,21 @@ jobs:
     runs-on: stardrive
 
     env:
-      token_discord: ${{ secrets.DISCORD_BOT_TOKEN }}
-      token_uptime: ${{secrets.TOKEN_UPTIME}}
-      token_botsondiscord: ${{secrets.TOKEN_BOTSONDISCORD}}
-      token_discordbotlist: ${{secrets.TOKEN_DISCORDBOTLIST}}
-      token_discords: ${{secrets.TOKEN_DISCORDS}}
-      token_discordbots: ${{secrets.TOKEN_DISCORDBOTS}}
-      token_motiondevelopment: ${{secrets.TOKEN_MOTIONDEVELOPMENT}}
-      token_saucenao: ${{secrets.TOKEN_SAUCENAO}}
-      login_fa_cookie_a: ${{secrets.FA_COOKIE_A}}
-      login_fa_cookie_b: ${{secrets.FA_COOKIE_B}}
-      login_e621_user: ${{secrets.E621_LOGIN}}
-      token_e621: ${{secrets.E621_API_KEY}}
-      db_port: ${{ secrets.DB_PORT }}
-      db_password: ${{ secrets.DB_PASSWORD }}
-      db_password_root: ${{ secrets.DB_PASSWORD_ROOT }}
+      TOKEN_DISCORD: ${{ secrets.DISCORD_BOT_TOKEN }}
+      TOKEN_UPTIME: ${{secrets.TOKEN_UPTIME}}
+      TOKEN_BOTSONDISCORD: ${{secrets.TOKEN_BOTSONDISCORD}}
+      TOKEN_DISCORDBOTLIST: ${{secrets.TOKEN_DISCORDBOTLIST}}
+      TOKEN_DISCORDS: ${{secrets.TOKEN_DISCORDS}}
+      TOKEN_DISCORDBOTS: ${{secrets.TOKEN_DISCORDBOTS}}
+      TOKEN_MOTIONDEVELOPMENT: ${{secrets.TOKEN_MOTIONDEVELOPMENT}}
+      TOKEN_SAUCENAO: ${{secrets.TOKEN_SAUCENAO}}
+      LOGIN_FA_COOKIE_A: ${{secrets.FA_COOKIE_A}}
+      LOGIN_FA_COOKIE_B: ${{secrets.FA_COOKIE_B}}
+      LOGIN_E621_USER: ${{secrets.E621_LOGIN}}
+      TOKEN_E621: ${{secrets.E621_API_KEY}}
+      MARIADB_PORT: ${{ secrets.MARIADB_PORT }}
+      MARIADB_PASSWORD: ${{ secrets.MARIADB_PASSWORD }}
+      MARIADB_PASSWORD_ROOT: ${{ secrets.MARIADB_PASSWORD_ROOT }}
 
     steps:
       - uses: actions/checkout@v2
