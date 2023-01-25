@@ -53,9 +53,9 @@ if (DEBUG) LOG(`[${config.package.name}] Bot is on Debug-Mode. Some functions ar
     const INIT = require(`./functions/STARTUP/${FCN}`);
     await INIT.run(fs);
     // startupQueue.add(async () => {
-    //   if (!FCN.endsWith('.js')) return;
-    //   const INIT = require(`./functions/STARTUP/${FCN}`);
-    //   await INIT.run(fs);
+    //     if (!FCN.endsWith('.js')) return;
+    //     const INIT = require(`./functions/STARTUP/${FCN}`);
+    //     await INIT.run(fs);
     // });
   });
 

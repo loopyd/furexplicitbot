@@ -43,16 +43,16 @@
         },
         "status": {
             "api": {
-                "endpoint": "https://status.flipped.codes/api/status-page/",
+                "endpoint": "",
                 "groupName": "FurExplicitBot",
                 "apiCall": {
-                    "services": "flippedcodes",
-                    "uptime": "heartbeat/flippedcodes"
+                    "services": "",
+                    "uptime": ""
                 }
             },
             "embed": {
                 "icon": "https://status.flipped.codes/upload/logo2.png",
-                "url": "https://status.flipped.codes/"
+                "url": ""
             }
         }
     },
