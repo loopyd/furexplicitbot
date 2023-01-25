@@ -1,16 +1,22 @@
 const axios = require('axios');
 
-function sendHeartbeat(token, endpoint, meta, blob) {
-    if (token && token.length > 0) {
-        if (endpoint && endpoint.length > 0) {
-            axios(blob);
-          } else {
-            LOG(`Heartbeat skipped for ${meta.name} as ${meta.node} is not set in config.json.`);
-          }
-        } else {
-          LOG(`Heartbeat skipped for ${meta.name} as ${meta.token} is not set in config.json.`);
-        }
-      }
+function sendHeartbeat(meta, blob) {
+  if (meta.token && meta.token.length > 0) {
+    if (meta.endpoint && meta.endpoint.length > 0) {
+      try {
+        LOG(`Sending heartbeat for ${meta.name}...`)
+        axios(blob)
+        LOG(`Sent heartbeat for ${meta.name} successfully.`)
+      } catch (error) {
+        ERR(`Error sending heartbeat for ${meta.name}, error was: ${error}`);
+      };
+    } else {
+      LOG(`Heartbeat skipped for ${meta.name} as ${meta.node} is not set in config.json.`);
+    }
+  } else {
+    LOG(`Heartbeat skipped for ${meta.name} as ${meta.token} is not set in config.json.`);
+  }
+}
 
 module.exports.run = async () => {
   const guildCountsArr = await client.shard.fetchClientValues('guilds.cache.size');
@@ -20,39 +26,41 @@ module.exports.run = async () => {
   // Bots on Discord listing
   setInterval(() => {
     sendHeartbeat(
-      token = process.env.TOKEN_BOTSONDISCORD,
-      meta = {
-        name: "Bots On Discord list",
-        node: "config.functions.heartbeat.botsondiscord.endpoint",
+      {
+        'name': "Bots On Discord list",
+        'node': "config.functions.heartbeat.botsondiscord.endpoint",
+        'token': process.env.TOKEN_BOTSONDISCORD,
+        'endpoint': config.functions.heartbeat.botsondiscord.endpoint,
       },
-      blob = {
-        method: 'post', url: `${config.functions.heartbeat.botsondiscord.endpoint}${client.user.id}/guilds`,
-        headers: {
-          Authorization: process.env.TOKEN_BOTSONDISCORD,
+      {
+        'method': 'post',
+        'url': `${config.functions.heartbeat.botsondiscord.endpoint}${client.user.id}/guilds`,
+        'headers': {
+          'Authorization': process.env.TOKEN_BOTSONDISCORD,
           'Content-Type': 'application/json',
           'User-Agent': userAgent,
         },
-        data: { guildCount },
-      }
-    );
+        'data': { guildCount },
+      });
   }, config.functions.heartbeat.botsondiscord.interval);
 
   // Discord bot list listing
   setInterval(() => {
     sendHeartbeat(
-      token = process.env.TOKEN_DISCORDBOTLIST,
-      meta = {
-        name: "Discord Bot List listing",
-        node: "config.functions.heartbeat.discordbotlist.endpoint",
+      {
+        'name': "Discord Bot List listing",
+        'node': "config.functions.heartbeat.discordbotlist.endpoint",
+        'token': process.env.TOKEN_DISCORDBOTLIST,
+        'endpoint': config.functions.heartbeat.discordbotlist.endpoint,
       },
-      blob = {
-        method: 'post',
-        url: `${config.functions.heartbeat.discordbotlist.endpoint}${client.user.id}/stats`,
-        headers: {
-          Authorization: process.env.TOKEN_DISCORDBOTLIST,
+      {
+        'method': 'post',
+        'url': `${config.functions.heartbeat.discordbotlist.endpoint}${client.user.id}/stats`,
+        'headers': {
+          'Authorization': process.env.TOKEN_DISCORDBOTLIST,
           'User-Agent': userAgent,
         },
-        data: { guildCount },
+        'data': { guildCount },
       }
     );
   }, config.functions.heartbeat.discordbotlist.interval);
@@ -60,20 +68,21 @@ module.exports.run = async () => {
   // Discord Bots listing
   setInterval(() => {
     sendHeartbeat(
-      token = process.env.TOKEN_DISCORDBOTS,
-      meta = {
-        name: "Discord Bots listing",
-        node: "config.functions.heartbeat.discordbots.endpoint",
+      {
+        'name': "Discord Bots listing",
+        'node': "config.functions.heartbeat.discordbots.endpoint",
+        'token': process.env.TOKEN_DISCORDBOTS,
+        'endpoint': config.functions.heartbeat.discordbotlist.endpoint,
       },
-      blob = {
-        method: 'post',
-        url: `${config.functions.heartbeat.discordbots.endpoint}${client.user.id}/stats`,
-        headers: {
-          Authorization: process.env.TOKEN_DISCORDBOTS,
+      {
+        'method': 'post',
+        'url': `${config.functions.heartbeat.discordbots.endpoint}${client.user.id}/stats`,
+        'headers': {
+          'Authorization': process.env.TOKEN_DISCORDBOTS,
           'Content-Type': 'application/json',
           'User-Agent': userAgent,
         },
-        data: { guildCount },
+        'data': { guildCount },
       }
     );
   }, config.functions.heartbeat.discordbots.interval);
@@ -81,19 +90,20 @@ module.exports.run = async () => {
   // Discords listing
   setInterval(() => {
     sendHeartbeat(
-      token = process.env.TOKEN_DISCORDBOTS,
-      meta = {
-        name: "Discords listing",
-        node: "config.functions.heartbeat.discords.endpoint",
+      {
+        'name': "Discords listing",
+        'node': "config.functions.heartbeat.discords.endpoint",
+        'token': process.env.TOKEN_DISCORDS,
+        'endpoint': config.functions.heartbeat.discords.endpoint,
       },
-      blob = {
-        method: 'post',
-        url: `${config.functions.heartbeat.discords.endpoint}${client.user.id}`,
-        headers: {
-          Authorization: process.env.TOKEN_DISCORDS,
+      {
+        'method': 'post',
+        'url': `${config.functions.heartbeat.discords.endpoint}${client.user.id}`,
+        'headers': {
+          'Authorization': process.env.TOKEN_DISCORDS,
           'User-Agent': userAgent,
         },
-        data: { guildCount },
+        'data': { guildCount },
       },
     );
   }, config.functions.heartbeat.discords.interval);
@@ -101,19 +111,20 @@ module.exports.run = async () => {
   // motiondevelopment listing
   setInterval(() => {
     sendHeartbeat(
-      token = process.env.TOKEN_DISCORDBOTS,
-      meta = {
-        name: "MotionDevelopment listing",
-        node: "config.functions.heartbeat.motiondevelopment.endpoint",
+      {
+        'name': "Motion Development listing",
+        'node': "config.functions.heartbeat.motiondevelopment.endpoint",
+        'token': process.env.TOKEN_MOTIONDEVELOPMENT,
+        'endpoint': config.functions.heartbeat.motiondevelopment.endpoint,
       },
-      blob = {
-        method: 'post',
-        url: `${config.functions.heartbeat.motiondevelopment.endpoint}${client.user.id}/stats`,
-        headers: {
-          key: process.env.TOKEN_MOTIONDEVELOPMENT,
+      {
+        'method': 'post',
+        'url': `${config.functions.heartbeat.motiondevelopment.endpoint}${client.user.id}/stats`,
+        'headers': {
+          'key': process.env.TOKEN_MOTIONDEVELOPMENT,
           'Content-Type': 'application/json',
         },
-        data: { guildCount },
+        'data': { guildCount },
       },
     );
   }, config.functions.heartbeat.motiondevelopment.interval);
