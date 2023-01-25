@@ -6,7 +6,7 @@ You can invite me if you click on my profile.  I would be more than happy to joi
 
 🗺️ __Places to go:__
 
-🛠️ Project Manager: **Phil Flipper#3621**
-❓ Support Server: https://discord.gg/fMYD6XR
-⚙️ Source Code: https://github.com/FlippedCodes/furexplicitbot
-😣 Issue Tracker: https://github.com/FlippedCodes/furexplicitbot/issues
+- 🛠️ Project Manager: **Phil Flipper#3621**
+- ❓ Support Server: https://discord.gg/fMYD6XR
+- ⚙️ Source Code: https://github.com/FlippedCodes/furexplicitbot
+- 😣 Issue Tracker: https://github.com/FlippedCodes/furexplicitbot/issues
