@@ -4,8 +4,6 @@ const { Login, Submission } = require('furaffinity-api');
 
 const postfacache = require('../../database/models/postfacache');
 
-Login(process.env.LOGIN_FA_COOKIE_A, process.env.LOGIN_FA_COOKIE_B);
-
 function postMessage(post, channel) {
   const embed = new EmbedBuilder();
   embed
@@ -61,8 +59,13 @@ async function main() {
 }
 
 module.exports.run = () => {
-  if (DEBUG) main();
-  setInterval(() => main(), config.commands.faAutopost.intervalChecker / 2);
+  if (process.env.LOGIN_FA_COOKIE_A & process.env.LOGIN_FA_COOKIE_A.length > 0 &&
+    process.env.LOGIN_FA_COOKIE_B && process.env.LOGIN_FA_COOKIE_B.length > 0) {
+    Login(process.env.LOGIN_FA_COOKIE_A, process.env.LOGIN_FA_COOKIE_B);
+    setInterval(() => main(), config.commands.faAutopost.intervalChecker / 2);
+  } else {
+    ERR('FurAffinity autoposting has been disabled as LOGIN_FA_COOKIE_A and LOGIN_FA_COOKIE_B are not set.');
+  }
 };
 
 module.exports.help = {

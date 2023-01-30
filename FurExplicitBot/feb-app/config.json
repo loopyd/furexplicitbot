@@ -1,12 +1,4 @@
 {
-    "setup": {
-        "setupFunctions": [
-            "SETUP_status",
-            "SETUP_heartbeat",
-            "SETUP_initCommands",
-            "SETUP_DBSync"
-        ]
-    },
     "commands": {
         "buttonTimeout": 600000,
         "about": {

@@ -8,17 +8,18 @@ const params = (pingRaw) => (
 );
 
 function sendHeartbeat() {
-  if (process.env.TOKEN_UPTIME && process.env.TOKEN_UPTIME.length > 0) {
-    axios.get(`${config.functions.heartbeat.uptime.endpoint}${process.env.TOKEN_UPTIME}`, { params: params(client.ws.ping) });
-  } else {
-    LOG('Heartbeat skipped for uptime as TOKEN_UPTIME is not set.');
-  }
+    LOG('Sending heartbeat for uptime...')
+    axios.get(`${config.functions.heartbeat.uptime.endpoint}${process.env.TOKEN_UPTIME}`, { params: params(client.ws.ping) }).catch(ERR);
 }
 
 module.exports.run = async () => {
-  setInterval(() => {
-    sendHeartbeat();
-  }, config.functions.heartbeat.uptime.interval);
+  if (process.env.TOKEN_UPTIME && process.env.TOKEN_UPTIME.length > 0) {
+    setInterval(() => {
+      sendHeartbeat();
+    }, config.functions.heartbeat.uptime.interval);
+  } else {
+    ERR('Kuma uptime disabled as TOKEN_UPTIME is not set in environment variables.');
+  }
 };
 
 module.exports.data = {

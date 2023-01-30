@@ -77,7 +77,12 @@ async function main() {
 }
 
 module.exports.run = () => {
-  setInterval(() => main(), config.commands.autopost.intervalChecker);
+  if (process.env.LOGIN_E621 && process.env.LOGIN_E621.length > 0 &&
+    process.env.TOKEN_E621 && process.env.TOKEN_E621.length > 0) {
+    setInterval(() => main(), config.commands.autopost.intervalChecker);
+  } else {
+    ERR('E621 autoposting has been disabled as LOGIN_E621_USER and TOKEN_E621 evironment variables are not set.');
+  }
 };
 
 module.exports.help = {

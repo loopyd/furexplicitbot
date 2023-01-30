@@ -1,25 +1,10 @@
 const Path = require('path');
 
-const fs = require('fs');
-
-const files = [];
-
-function getFiles(Directory) {
-  fs.readdirSync(Directory).forEach((File) => {
-    const Absolute = Path.join(Directory, File);
-    if (fs.statSync(Absolute).isDirectory()) return getFiles(Absolute);
-    files.push(Absolute);
-  });
-  return files;
-}
-
 module.exports.run = async () => {
   // create empty array to store command submittions
   const commandsSubmit = [];
   // get all command files
-  const files = await getFiles('./commands/');
-  // only get file with '.js'
-  const jsfiles = files.filter((f) => f.split('.').pop() === 'js');
+  const jsfiles = await FILES('./commands/', 'js', true);
   const cmdLength = jsfiles.length;
   // check if commands are there
   if (cmdLength <= 0) return LOG(`[${module.exports.data.name}] No command(s) to load!`);
@@ -38,7 +23,7 @@ module.exports.run = async () => {
     // get module command and info
     const probs = require(`../../${f}`);
     // announcing command loading
-    if (DEBUG) LOG(`[${module.exports.data.name}]     ${i + 1}) Loaded: ${cleanName}!`);
+    // LOG(`[${module.exports.data.name}]     ${i + 1}) Loaded: ${cleanName}!`);
     // adding command to collection
     client.commands.set(cleanName, probs);
     // if not subcommand: adding command to submittion to discord

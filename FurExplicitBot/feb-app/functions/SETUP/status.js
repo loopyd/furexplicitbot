@@ -1,5 +1,4 @@
 module.exports.run = async () => {
-  // FIXME: function loads in when shards are not ready yet, causing a error on startup and no status
   if (DEBUG) return;
   LOG(`[${module.exports.data.name}] Setting status...`);
   await client.user.setStatus('online');

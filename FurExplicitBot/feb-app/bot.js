@@ -2,8 +2,6 @@
 const {
   Client, IntentsBitField, Collection, SlashCommandBuilder, Colors,
 } = require('discord.js');
-// init file system
-const fs = require('fs');
 // use contructor to create intent bit field
 const intents = new IntentsBitField([
   IntentsBitField.Flags.Guilds,
@@ -37,6 +35,27 @@ global.ERR = (err) => {
   return;
 };
 
+
+// generic file listing fetch utility with extension filter and sort capability.
+global.FILES = (Directory, ext, sort) => {
+  files = [];
+  (infile = function(d, f) {
+    fs = require('fs');
+    path = require('path');
+    fs.readdirSync(d).forEach((File) => {
+      Absolute = path.join(d, File);
+      if (fs.statSync(Absolute).isDirectory()) {
+        infile(Absolute, f);
+      } else {
+        f.push(Absolute);
+      }
+    });
+  })(Directory, files);
+  if (ext != null) files = files.filter((f) => f.split('.').pop() === 'js');
+  if (sort == true) files = files.sort(function (a, b) { return a.toLowerCase() > b.toLowerCase() });
+  return files;
+};
+
 // creating collections and sets
 client.commands = new Collection();
 client.functions = new Collection();
@@ -47,16 +66,10 @@ if (DEBUG) LOG(`[${config.package.name}] Bot is on Debug-Mode. Some functions ar
 (async () => {
   // startup functions in order
   // const startupQueue = new PQueue({ concurrency: 1 });
-  const files = await fs.readdirSync('./functions/STARTUP');
-  files.forEach(async (FCN) => {
-    if (!FCN.endsWith('.js')) return;
-    const INIT = require(`./functions/STARTUP/${FCN}`);
-    await INIT.run(fs);
-    // startupQueue.add(async () => {
-    //     if (!FCN.endsWith('.js')) return;
-    //     const INIT = require(`./functions/STARTUP/${FCN}`);
-    //     await INIT.run(fs);
-    // });
+  const jsfiles = await FILES('./functions/STARTUP', 'js', true);
+  jsfiles.forEach(async (FCN) => {
+    const INIT = require(`./${FCN}`);
+    await INIT.run();
   });
 
   // When done: Login the bot
@@ -68,8 +81,9 @@ client.on('ready', async () => {
   LOG(`[${config.package.name}] Logged in as "${client.user.tag}"!`);
 
   // run setup functions
-  config.setup.setupFunctions.forEach((FCN) => {
-    client.functions.get(FCN).run();
+  let setupFunctions = client.functions.filter((value, key, collection) => key.startsWith('SETUP_'));
+  setupFunctions.forEach((value, key, collection) => {
+    value.run();
   });
 });
 
