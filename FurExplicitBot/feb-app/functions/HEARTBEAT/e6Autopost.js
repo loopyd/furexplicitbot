@@ -77,7 +77,7 @@ async function main() {
 }
 
 module.exports.run = () => {
-  if (process.env.LOGIN_E621 && process.env.LOGIN_E621.length > 0 &&
+  if (process.env.LOGIN_E621_USER && process.env.LOGIN_E621_USER.length > 0 &&
     process.env.TOKEN_E621 && process.env.TOKEN_E621.length > 0) {
     setInterval(() => main(), config.commands.autopost.intervalChecker);
   } else {
