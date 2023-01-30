@@ -14,7 +14,7 @@ function sendHeartbeat(meta, blob) {
       LOG(`Heartbeat skipped for ${meta.name} as ${meta.node} is not set in config.json.`);
     }
   } else {
-    LOG(`Heartbeat skipped for ${meta.name} as ${meta.token} is not set in config.json.`);
+    LOG(`Heartbeat skipped for ${meta.name} as ${meta.node} is not set in config.json.`);
   }
 }
 
