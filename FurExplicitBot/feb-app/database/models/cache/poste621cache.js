@@ -2,7 +2,7 @@
 const Sequelize = require('sequelize');
 
 module.exports = sequelize.define(
-  'postfacache',
+  'poste621cache',
   {
     ID: {
       type: Sequelize.INTEGER(10),
@@ -13,15 +13,23 @@ module.exports = sequelize.define(
       type: Sequelize.STRING(30),
       allowNull: false,
     },
-    submissionID: {
+    postID: {
       type: Sequelize.INTEGER(20),
+      allowNull: false,
+    },
+    artist: {
+      type: Sequelize.TEXT('tiny'),
+      allowNull: false,
+    },
+    directLink: {
+      type: Sequelize.TEXT('tiny'),
       allowNull: false,
     },
   },
   {
     uniqueKeys: {
-      autoPostUnique: {
-        fields: ['channelID', 'submissionID'],
+      poste621cacheUnique: {
+        fields: ['channelID', 'postID'],
       },
     },
   },

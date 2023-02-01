@@ -18,19 +18,19 @@ module.exports.data = new CmdBuilder()
   .setDescription('Post new FurAffinity submissions in a channel.')
   .addSubcommand((SC) => SC
     .setName('add')
-    .setDescription('Add a new autopost chwannel.')
+    .setDescription('Add a new autopost channel.')
     .addChannelOption((option) => option
       .setName('channel')
-      .setDescription('Prowide a channel you mwe to post in.')
+      .setDescription('Provide a channel you want me to post in.')
       .addChannelTypes(0)
       .setRequired(true))
     .addStringOption((option) => option
       .setName('artistid')
-      .setDescription('Lewt me knowo the awrtist you want to see!')
+      .setDescription('Let me know the artist you want to see!')
       .setRequired(true)))
   .addSubcommand((SC) => SC
     .setName('remove')
-    .setDescription('Remove a autopost channel.')
+    .setDescription('Remove an autopost channel.')
     .addStringOption((option) => option
       .setName('channel')
       .setDescription('Provide a autopost to remove.')

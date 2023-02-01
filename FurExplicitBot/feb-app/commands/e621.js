@@ -109,9 +109,9 @@ module.exports.data = new CmdBuilder()
   .setDescription('Get pictures from e621.')
   .addStringOption((option) => option
     .setName('tags')
-    .setDescription('Lewt me knowo the twags you want to see!')
+    .setDescription('Let me know the tags you want to see!')
     .setAutocomplete(true))
   // .setRequired(true))
   .addNumberOption((option) => option
     .setName('amount')
-    .setDescription('A maximum o...of 10 can be prowided.'));
+    .setDescription('A maximum of 10 can be provided.'));

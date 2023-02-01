@@ -10,7 +10,7 @@ module.exports.run = async (interaction) => {
 
 module.exports.data = new CmdBuilder()
   .setName('suggest')
-  .setDescription('Iwm gowing to trwy and gwuess what you want.')
+  .setDescription('I\'m going to try and guess what you want.')
   .addSubcommand((SC) => SC
     .setName('start')
     .setDescription('Start the game!'))
@@ -23,4 +23,4 @@ module.exports.data = new CmdBuilder()
   //     .setRequired(true)))
   .addSubcommand((SC) => SC
     .setName('reset')
-    .setDescription('Went to far int a a rabwit hole? owo You can reswet here!'));
+    .setDescription('Went to far into a rabbit hole?  You can reset here!'));

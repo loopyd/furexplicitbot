@@ -4,12 +4,12 @@ module.exports.run = async () => {
   // create empty array to store command submittions
   const commandsSubmit = [];
   // get all command files
-  const jsfiles = await FILES('./commands/', 'js', true);
+  const jsfiles = await FILES('./commands/', 'js', true, true);
   const cmdLength = jsfiles.length;
   // check if commands are there
   if (cmdLength <= 0) return LOG(`[${module.exports.data.name}] No command(s) to load!`);
   // announcing command loading
-  if (DEBUG) LOG(`[${module.exports.data.name}] Loading ${cmdLength} command${cmdLength !== 1 ? 's' : ''}...`);
+  LOG(`[${module.exports.data.name}] Loading ${cmdLength} command${cmdLength !== 1 ? 's' : ''}...`);
 
   // adding all commands
   await jsfiles.forEach((f, i) => {
@@ -23,7 +23,7 @@ module.exports.run = async () => {
     // get module command and info
     const probs = require(`../../${f}`);
     // announcing command loading
-    // LOG(`[${module.exports.data.name}]     ${i + 1}) Loaded: ${cleanName}!`);
+    LOG(`[${module.exports.data.name}]     ${i + 1}) Loaded: ${cleanName}!`);
     // adding command to collection
     client.commands.set(cleanName, probs);
     // if not subcommand: adding command to submittion to discord

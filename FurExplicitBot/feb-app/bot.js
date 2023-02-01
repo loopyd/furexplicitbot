@@ -37,14 +37,14 @@ global.ERR = (err) => {
 
 
 // generic file listing fetch utility with extension filter and sort capability.
-global.FILES = (Directory, ext, sort) => {
+global.FILES = (Directory, ext, sort, recurse) => {
   files = [];
   (infile = function(d, f) {
     fs = require('fs');
     path = require('path');
     fs.readdirSync(d).forEach((File) => {
       Absolute = path.join(d, File);
-      if (fs.statSync(Absolute).isDirectory()) {
+      if (fs.statSync(Absolute).isDirectory() && recurse == true) {
         infile(Absolute, f);
       } else {
         f.push(Absolute);

@@ -2,7 +2,7 @@
 const Sequelize = require('sequelize');
 
 module.exports = sequelize.define(
-  'personalTag',
+  'usertag',
   {
     ID: {
       type: Sequelize.INTEGER,

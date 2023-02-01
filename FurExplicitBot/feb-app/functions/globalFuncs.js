@@ -2,17 +2,27 @@ const { Colors } = require('discord.js');
 
 const Uwuifier = require('uwuifier');
 
-// FIXME: uwuifier constructor issues
-const uwuifier = new Uwuifier(config.functions.globalFuncs.uwuifier);
+// helps out config.json issues with the uwuifier (user error)
+let uwuifier;
+try {
+  uwuifier = new Uwuifier(config.functions.globalFuncs.uwuifier);
+} catch(err) {
+  uwuifier = null;
+  LOG(`[${module.exports.data.name}] Error:  Failed to initialize uwuifier, error was: ${err}`);
+} 
 
 global.uwu = (text) => {
   // function leaves all words alone with a prefix of "ßß" That way markdown and links can be left untouched by the uwu
-  const splitText = text.split(' ');
-  const out = splitText.map((word) => {
-    if (word.includes('ßß')) return word.replace('ßß', '');
-    return uwuifier.uwuifySentence(word);
-  });
-  return out.join(' ');
+  if (uwuifier) {
+    const splitText = text.split(' ');
+    const out = splitText.map((word) => {
+      if (word.includes('ßß')) return word.replace('ßß', '');
+      return uwuifier.uwuifySentence(word);
+    });
+    return out.join(' ');
+  } else {
+    return text;
+  }
 };
 
 global.messageFail = async (interaction, body, color, ephemeral) => {

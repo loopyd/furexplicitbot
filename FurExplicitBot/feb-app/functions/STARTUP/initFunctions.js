@@ -1,6 +1,6 @@
 module.exports.run = async () => {
   // get all function files
-  const jsfiles = await FILES('./functions', 'js', true);
+  const jsfiles = await FILES('./functions', 'js', true, true);
   const funcLength = jsfiles.length;
   // check if functions are there
   if (jsfiles.length <= 0) return LOG(`[${module.exports.data.name}] No function(s) to load!`);
@@ -18,7 +18,7 @@ module.exports.run = async () => {
     if (cleanName.search('archive_') !== -1) return;
     // get module functions and info
     const probs = require(`../../${f}`);
-    // LOG(`[${module.exports.data.name}]     ${i + 1}) Loaded: ${cleanName}!`);
+    LOG(`[${module.exports.data.name}]     ${i + 1}) Loaded: ${cleanName}!`);
     // adding function to collection
     client.functions.set(cleanName, probs);
   });

@@ -18,9 +18,6 @@ function isApiConfigured(config) {
 if (isApiConfigured(uptimeConfig)) {
   api = axios.create({ baseURL: uptimeConfig.api.endpoint });
 }
-else {
-  LOG('kuma uptime API is not configured in config.json, the status command will display a remark about this.');
-}
 
 function setOverallStatus(params) {
   const { isUpOverall, embed } = params;
@@ -60,7 +57,7 @@ module.exports.run = async (interaction) => {
     uptimeInfo.forEach((service) => embed.addFields([{ name: service.name, value: `${service.isUp ? '🟢' : '🔴'} ${Math.floor(service.uptimePercentage)}%`, inline: true }]));
   } else {
     embed.setAuthor({ name: 'Status Page', iconURL: uptimeConfig.embed.icon });
-    embed.setDescription( uwu('The status command is currently disabled as my developer has not set it up, yet!') );
+    embed.setDescription( uwu('The status command is currently disabled') );
     embed.setFooter({ text: uwu('Disabled') });
   }
   reply(interaction, { embeds: [embed] });
