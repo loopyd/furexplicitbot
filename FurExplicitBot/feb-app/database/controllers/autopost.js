@@ -121,7 +121,7 @@ module.exports = {
         });
         return autopostobjects;
     },
-    delete: async (autopostobjects) => {
+    destroy: async (autopostobjects) => {
         autopostobjects.forEach(async (autopostobject) => {
             let result = autopost.autopostbase.findAll({
                 where: {
@@ -131,11 +131,11 @@ module.exports = {
                 return ab;
             }).catch(ERR);
             if (result) {
-                autopost.autopostbase.destroy({
+                await autopost.autopostbase.destroy({
                     where: {
                         ID: autopostobject.autopostbase.ID,
                     },
-                });
+                }).catch(ERR);
             } else {
                 await LOG(`${module.exports.data.name} Error: Failed to delete autopost base record with ID ${autopostobject.autopostbase.ID} as it does not exist.`);
             }
@@ -145,7 +145,7 @@ module.exports = {
                         where: {
                             ID: autopostobject.autopostbase.ID,
                         },
-                    });
+                    }).catch(ERR);
                     break;
                 case 'fa':
                     await autopost.autopostfa.destroy({
@@ -159,7 +159,7 @@ module.exports = {
                         where: {
                             ID: autopostobject.autopostbase.ID,
                         }
-                    });
+                    }).catch(ERR);
                     break;
                 default:
                     await LOG(`${module.exports.data.name} Error: Failed to delete associated autopost record with ID ${autopostobject.autopostbase.ID}, as unknown autopost type \'${autopostobject.autopostbase.type}\' was specified.`);
@@ -168,20 +168,64 @@ module.exports = {
         })
     },
     findByID: async (autopostID) => {
-        let results = await autopost.autopostbase.findByPk(autopostID, { 
-            include: ['autopostse621', 'autopostsfa', 'autopostssource'],
-        }).then((ab) =>
-        {
+        // Search for a result matching the ID
+        let result = await autopost.autopostbase.findByPk(autopostID).then((ab) => {
             return ab;
         }).catch(ERR);
-        return results;
+        if (result) {
+            // Filter and include the associated result's autopost data based upon 
+            // its type.
+            let newresult = await autopost.autopostbase.findByPk(autopostID, {
+                include: ((t) => {
+                    let res;
+                    switch (t) {
+                        case 'e621':
+                            res = ['autopostse621'];
+                            break;
+                        case 'fa':
+                            res = ['autopostsfa'];
+                            break;
+                        case 'source':
+                            res = ['autopostssource'];
+                            break;
+                        default:
+                            res = [];
+                            break;
+                    }
+                    return res;
+                })(result.type),
+            }).then( (ab) => {
+                return ab;
+            }).catch(ERR);
+            result = newresult;
+        } else {
+            return null;
+        }
+        return result;
     },
     findByType: async (autoposttype) => {
         let results = await autopost.autopostbase.findAll({
             where: {
                 type: autoposttype,
             },
-            include: ['autopostse621', 'autopostsfa', 'autopostssource'],
+            include: ((t) => {
+                let res;
+                switch (t) {
+                    case 'e621':
+                        res = ['autopostse621'];
+                        break;
+                    case 'fa':
+                        res = ['autopostsfa'];
+                        break;
+                    case 'source':
+                        res = ['autopostssource'];
+                        break;
+                    default:
+                        res = [];
+                        break;
+                }
+                return res;
+                })(autoposttype),
         }).then((ab) => {
             return ab;
         }).catch(ERR);
