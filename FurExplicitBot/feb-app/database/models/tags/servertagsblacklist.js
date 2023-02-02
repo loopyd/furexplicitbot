@@ -1,10 +1,11 @@
 /* eslint-disable no-undef */
 const Sequelize = require('sequelize');
 
+// TODO: restructure servertagsblacklist into servertagsblacklistbase and servertagsblacklisttag
 module.exports = sequelize.define(
   'servertagsblacklist',
   {
-    id: {
+    ID: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
