@@ -30,15 +30,21 @@ async function cleanupDonePosts() {
 function createJobs(posts) {
   posts.forEach(async (post) => {
     const artistID = post.author.id;
+    // check if artist is still needed and unwatch to clean unnesseary submissons
     const todoChannels = await autopostfasubmission.findAll({ where: { artistID } });
     if (todoChannels.length === 0) unwatchAuthor(artistID);
-    const bulkData = todoChannels.map((channel) => {
+    else {
+      // data preparation to add to db
+      const bulkData = todoChannels.map((channel) => {
       return {
         channelID: channel.channelID,
         submissionID: post.id
       }
-    });
-    if (bulkData.length) await postfacache.bulkCreate(bulkData);
+      });
+      // bulk add db entries
+      if (bulkData.length) await postfacache.bulkCreate(bulkData);
+    }
+    // schedule for deletion
     del.push(post.id);
   });
 }
