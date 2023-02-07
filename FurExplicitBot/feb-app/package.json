@@ -10,8 +10,10 @@
     "type": "git",
     "url": "git+https://github.com/FlipperLP/furexplicitbot.git"
   },
-  "keywords": [],
-  "author": "phil",
+  "keywords": [ 
+    "e621", "nsfw", "furry", "explicit", "discord", "bot", "furaffinity", "rule34"
+  ],
+  "author": "Phil Flipper",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/FlipperLP/furexplicitbot/issues"

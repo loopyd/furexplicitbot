@@ -1,20 +1,13 @@
-const autopostfasubmission = require('../../../../database/models/autopostfasubmission');
+const autopost = require('../../../../database/controllers/autopost');
 
-async function getChannels(serverID) {
-  const result = await autopostfasubmission.findAll({ where: { serverID } });
-  return result;
+module.exports = {
+  data: { name: 'faautopost' },
+  run: async (searchInput, serverID) => {
+    const DBentries = await autopost.findByServerIDAndType(serverID, 'fa');
+    const output = DBentries.map((entry) => {
+      const channel = client.channels.cache.find((channel) => channel.id === entry.channelID);
+      return { name: `#${channel.name} - ${entry.artistID}`, value: entry.channelID };
+    });
+    return output;
+  },
 }
-
-module.exports.run = async (searchInput, serverID) => {
-  const DBentries = await getChannels(serverID);
-
-  const output = DBentries.map((entry) => {
-    const channel = client.channels.cache.find((channel) => channel.id === entry.channelID);
-    return { name: `#${channel.name} - ${entry.artistID}`, value: entry.channelID };
-  });
-  return output;
-};
-
-module.exports.data = {
-  name: 'channel',
-};

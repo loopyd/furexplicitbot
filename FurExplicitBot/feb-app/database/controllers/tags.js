@@ -47,10 +47,12 @@ module.exports = {
                 }
             });
         },
-        findByID: async (userID) => {
+        findByID: async (ID) => {
             // Find a servertagsblacklist entry by its ID.
             let result = await tags.servertagsblacklist.findAll({
-                where: { userID: userID }
+                attributes: ['serverID', 'tag'],
+                where: { ID: ID },
+                order: [['tag', 'ASC']],
             }).then((ab) => {
                 return ab;
             }).catch(ERR);
@@ -59,7 +61,9 @@ module.exports = {
         findByServerID: async (serverID) => {
             // Find servertagsblacklist entries by server id.
             let results = await tags.servertagsblacklist.findAll({
-                where: { serverID: serverID }
+                attributes: ['ID', 'tag'],
+                where: { serverID: serverID },
+                order: [['tag', 'ASC']],
             }).then((ab) => {
                 return ab;
             }).catch(ERR);
@@ -68,7 +72,9 @@ module.exports = {
         findByTag: async (tagName) => {
             // Find servertagsblacklist entries by tag name.
             let results = await tags.servertagsblacklist.findAll({
-                where: { tag: tagName }
+                attributes: ['ID', 'tag'],
+                where: { tag: tagName },
+                order: [['tag', 'ASC']],
             }).then((ab) => {
                 return ab;
             }).catch(ERR);

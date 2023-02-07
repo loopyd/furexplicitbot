@@ -157,6 +157,15 @@ module.exports = {
             }).catch(ERR);
             return results;
         },
+        findFirstByChannelID: async (channelID) => {
+            // Find the latest post with a channel ID
+            let results = await cache.poste621cache.findOne({
+                where: { channelID: channelID }
+            }).then((ab) => {
+                return ab;
+            }).catch(ERR);
+            return results;
+        },
         findByDirectLink: async (directLink) => {
             // Find a e621 post cache objects by a direct link
             let results = await cache.poste621cache.findAll({
@@ -239,6 +248,79 @@ module.exports = {
                 return ab;
             }).catch(ERR);
             return results;
+        },
+    },
+    tage621cache: {
+        createOrUpdate: async (tage621cacheobjects) => {
+            // Loop through e621 tag cache objects we provided in
+            tage621cacheobjects.forEach(async (tage621cacheobject) => {
+                let result = await cache.tage621cache.findAll({
+                    where: { tag: tage621cacheobject.tag }
+                }).then((ab) => {
+                    return ab;
+                }).catch(ERR);
+                // if no result, create the e621 post cache object
+                if (!result) {
+                    tage621cacheobject = await cache.tage621cache.create(tage621cacheobject).then((ab) => {
+                        return ab;
+                    }).catch(ERR);
+                } else {
+                    // otherwise, update the tag cache object.
+                    tage621cacheobject = await cache.tage621cache.update(tage621cacheobject, {
+                        where: {
+                            ID: tage621cacheobject.ID
+                        }
+                    }).then((ab) => {
+                        return ab;
+                    }).catch(ERR);
+                }
+            }
+            );
+            return tage621cacheobjects;
+        },
+        destroy: async (tage621cacheobjects) => {
+            // Loop through e621 tag cache objects we provided in
+            tage621cacheobjects.forEach(async (tage621cacheobject) => {
+                // Find matching e621 tag cache objects.
+                let result = await cache.tage621cache.findAll({
+                    where: { tag: tage621cacheobject.tag }
+                }).then((ab) => {
+                    return ab;
+                }).catch(ERR);
+                // if result, delete the e621 tag cache object
+                if (result) {
+                    await cache.tage621cache.destroy({
+                        where: { tag: tage621cacheobject.tag }
+                    }).catch(ERR);
+                } else {
+                    LOG(`[${module.exports.data}] Error: Failed to delete e621 tag cache with tag ${tage621cacheobject.tag} as it was not found in the database.`)
+                }
+            });
+        },
+        findByID: async (ID) => {
+            // Find a e621 tag cache object by its ID.
+            let result = await cache.tage621cache.findAll({
+                where: { ID: ID }
+            }).then((ab) => {
+                return ab;
+            }).catch(ERR);
+            return result;
+        },
+        findTags: async (tags) => {
+            // Return a list of e621 tag cache objects that match the provided tags.
+            let foundTags = [];
+            if (!tags || tags.length === 0) return [];
+            tags.forEach(async (tag) => {
+                // Find e621 tag cache objects by tags
+                let result = await cache.tage621cache.findAll({
+                    where: { tag: tag }
+                }).then((ab) => {
+                    return ab;
+                }).catch(ERR);
+                // if result, add tag to list of found tags.
+                if (result) foundTags.push(tag);
+            });
+            return foundTags;
         },
     }
 }

@@ -231,4 +231,33 @@ module.exports = {
         }).catch(ERR);
         return results;
     },
+    findByServerIDAndType: async (serverID, autopostType) => {
+        let results = await autopost.autopostbase.findAll({
+            where: {
+                serverID: serverID,
+                type: autopostType,
+            },
+            include: ((t) => {
+                let res;
+                switch (t) {
+                    case 'e621':
+                        res = ['autopostse621'];
+                        break;
+                    case 'fa':
+                        res = ['autopostsfa'];
+                        break;
+                    case'source':
+                        res = ['autopostssource'];
+                        break;
+                    default:
+                        res = [];
+                        break;
+                }
+                return res;
+                })(autopostType),
+        }).then((ab) => {
+            return ab;
+        }).catch(ERR);
+        return results;
+    },
 }

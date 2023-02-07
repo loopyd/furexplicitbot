@@ -1,13 +1,8 @@
-const servertagsblacklist = require('../../../../database/models/servertagsblacklist');
-
-async function getTags(serverID) {
-  const result = await servertagsblacklist.findAll({ attributes: ['id', 'tag'], where: { serverID }, order: [['tag', 'ASC']] });
-  return result;
-}
+const tags = require('../../../../database/controllers/tags');
 
 module.exports.run = async (searchInput, serverID) => {
-  const DBentries = await getTags(serverID);
-
+  const DBentries = await tags.servertagsblacklist.findByID(serverID);
+  if (!DBentries) return [];
   const output = DBentries.map((entry) => ({ name: entry.tag, value: `${entry.id}` }));
   return output;
 };
