@@ -10,8 +10,15 @@
     "type": "git",
     "url": "git+https://github.com/FlipperLP/furexplicitbot.git"
   },
-  "keywords": [ 
-    "e621", "nsfw", "furry", "explicit", "discord", "bot", "furaffinity", "rule34"
+  "keywords": [
+    "e621",
+    "nsfw",
+    "furry",
+    "explicit",
+    "discord",
+    "bot",
+    "furaffinity",
+    "rule34"
   ],
   "author": "Phil Flipper",
   "license": "MIT",
@@ -23,7 +30,7 @@
     "axios": "^0.27.2",
     "bufferutil": "^4.0.7",
     "discord.js": "^14.7.1",
-    "furaffinity-api": "^4.5.0",
+    "furaffinity-api": "^4.3.3",
     "mysql2": "^2.3.3",
     "sequelize": "^6.28.0",
     "utf-8-validate": "^5.0.10",
@@ -32,6 +39,7 @@
   "devDependencies": {
     "eslint": "^8.5.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.3"
+    "eslint-plugin-import": "^2.25.3",
+    "jest": "^29.4.2"
   }
 }
